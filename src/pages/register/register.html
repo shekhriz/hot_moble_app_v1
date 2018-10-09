@@ -20,5 +20,25 @@
 
 
 <ion-content padding>
-  Hello India
+  <div class="dash_body">
+    <div class="top-container">
+      <span>Hello <strong>Rizwan,</strong></span><br>
+      <span>Welcome to HookedOn Talent</span>
+    </div>
+
+    <div class="video-container">
+      <video oncontextmenu="return false;" controlsList="nodownload"  id="introVideo" poster="../../assets/imgs/introPoster.jpg" controls="true">
+         <source src="https://d2ue829my6ap69.cloudfront.net/videos/AccionInro.mp4" type="video/mp4" />
+         Your browser does not support the video tag.
+     </video>
+    </div>
+
+    <div class="bottom-container">
+      <button class="bigBtn" ion-button full color='dark'>Begin Interview</button>
+      <button class="smallBtn" ion-button full color='light' (click)="openModal(1)">How it works</button>
+      <button class="smallBtn" ion-button full color='light' (click)="openModal(2)">Do's and Dont's</button>
+      <button class="smallBtn" ion-button full color='light' (click)="openModal(3)">Contact Us</button>
+    </div>
+
+  </div>
 </ion-content>

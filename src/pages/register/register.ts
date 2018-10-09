@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController ,IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { ModalPage } from '../modal/modal';
 /**
  * Generated class for the RegisterPage page.
  *
@@ -16,20 +17,24 @@ import { HomePage } from '../home/home';
 export class RegisterPage {
     private param1 : string ;
     private param2 : string ;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl : ModalController) {
         this.param1 = this.navParams.get("param1");
         this.param2 = this.navParams.get("param2");
-
-        console.log(this.param1);
-        console.log(this.param2);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
   }
 
   logout(){
-    this.navCtrl.push('HomePage');
+    this.navCtrl.push(HomePage);
+  }
+
+  openModal(mCode){
+    var data = {
+      code : mCode
+    };
+    var modalPage = this.modalCtrl.create('ModalPage',data);
+    modalPage.present();
   }
 
 }

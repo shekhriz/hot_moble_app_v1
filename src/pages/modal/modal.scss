@@ -1,4 +1,4 @@
-page-register {
+page-modal {
   ion-header{
     ion-navbar{
       .toolbar-background-md{
@@ -26,27 +26,24 @@ page-register {
     }
   }
 
-  .dash_body{
-    text-align: center;
-    .top-container{
-      margin: 30px;
-      span{
-        font-size: 20px;
+  .modal_body{
+    .heading{
+      border-bottom: solid 1px #f4f4f4;
+      margin-top: 10px;
+      h1{
+        padding: 10px;
+        font-size: 18px;
       }
     }
     .video-container{
+      margin-top: 50px;
       video{
         width: 100%;
       }
     }
-
-    .bottom-container{
-      margin: 20px;
-      .smallBtn{
-        margin-top: 10px;
-      }
-      .bigBtn{
-        margin-bottom: 20px;
+    .form-container{
+      .submitBTN{
+        margin-top: 50px;
       }
     }
   }

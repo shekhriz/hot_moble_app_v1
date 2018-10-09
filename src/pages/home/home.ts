@@ -5,10 +5,10 @@ import { RegisterPage } from '../register/register';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {   
-  email:"string";
-  otp:"number";
-  isOTP:false;
+export class HomePage {
+  email:string;
+  otp:number;
+  isOTP:boolean = false;
   constructor(public navCtrl: NavController) {
 
   }
@@ -18,7 +18,12 @@ export class HomePage {
       alert("Please enter valid email");
       return;
     }
+
     this.isOTP = true;
+  }
+
+  reGenarateOTP(){
+    this.isOTP = false;
   }
 
   login(){

@@ -12,12 +12,13 @@
       <ion-item class="login_body" *ngIf='isOTP'>
         <ion-input type="number" placeholder='Please enter OTP' [(ngModel)]="otp"></ion-input>
       </ion-item>
-        <div class="regOtp" *ngIf='isOTP'>
-          <a>Resend OTP</a>
-        </div>
     </ion-list>
+
     <button *ngIf='!isOTP' ion-button full color='light' (click)="genarateOTP()">Generate OTP</button>
     <button *ngIf='isOTP' ion-button full color='light' (click)="login()">Login</button>
+    <div class="regOtp" *ngIf='isOTP'>
+      <a (click)="reGenarateOTP()">Resend OTP</a>
+    </div>
     <!-- <ion-footer>
       <img src="https://d2ue829my6ap69.cloudfront.net/images/pwdby.png" alt="">
     </ion-footer> -->
