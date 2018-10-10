@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController ,IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { RateSkillsPage } from '../rate-skills/rate-skills';
 import { ModalPage } from '../modal/modal';
 /**
  * Generated class for the RegisterPage page.
@@ -35,6 +36,10 @@ export class RegisterPage {
     };
     var modalPage = this.modalCtrl.create('ModalPage',data);
     modalPage.present();
+  }
+
+  gotoSkillsRatePage(){
+    this.navCtrl.push(RateSkillsPage)
   }
 
 }
