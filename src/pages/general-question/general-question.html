@@ -1,0 +1,66 @@
+<!--
+  Generated template for the GeneralQuestionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton>
+    <div class="header">
+      <div class="left"></div>
+      <div class="center">
+        <img src="https://d2ue829my6ap69.cloudfront.net/images/Logo_white.png" alt="">
+      </div>
+      <div class="rigth">
+          <ion-icon ios="ios-power" md="md-power" (click)="logout()"></ion-icon>
+      </div>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <div class="_list">
+      <div class="quest-block">
+        <label>1. What is angular js</label>
+        <textarea placeholder="Please write answer here..."class="border" name="name" rows="4"></textarea>
+      </div>
+      <div class="quest-block">
+        <label>2. DOT NET notes & examples ?</label>
+        <textarea placeholder="Please write answer here..."class="border" name="name" rows="4"></textarea>
+      </div>
+      <div class="quest-block">
+        <label>3. what is react native?</label>
+        <textarea placeholder="Please write answer here..."class="border" name="name" rows="4"></textarea>
+      </div>
+      <div class="quest-block">
+        <label>4. Aptitude entry level Q ?</label>
+        <ion-list  radio-group [(ngModel)]="autoManufacturers">
+            <ion-item>
+              <ion-label>Cord</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Duesenberg</ion-label>
+              <ion-radio value="duesenberg" color='dark'></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Hudson</ion-label>
+              <ion-radio value="hudson" color='dark'></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Packard</ion-label>
+              <ion-radio value="packard" color='dark'></ion-radio>
+            </ion-item>
+          </ion-list>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
+<ion-footer>
+    <button ion-button full color='dark' (click)="gotoQuestionPage()">Next</button>
+</ion-footer>

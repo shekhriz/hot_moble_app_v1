@@ -14,7 +14,7 @@ import { HomePage } from '../home/home';
   templateUrl: 'question.html',
 })
 export class QuestionPage {
-  questionArray:number[] = [1,2,3,4,5];
+  questionArray:number[] = [1,2,3,4,5,6,7,8,9,10];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

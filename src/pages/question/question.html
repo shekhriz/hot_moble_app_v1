@@ -18,21 +18,18 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-
   <div class="_list">
     <span class="question">Answer the following Questions</span>
-    <ion-item class="question-container">
-      <ion-textarea class="border" rows="5" maxLength="200"></ion-textarea>
-    </ion-item>
-    <ion-item class="question-container">
-      <button ion-button color='dark'>Save</button>
-    </ion-item>
+    <div class="question-container">
+      <textarea placeholder="Please write answer here..."class="border" name="name" rows="10"></textarea>
+    </div>
+    <button class="float-right" ion-button color='dark'>Save</button>
+  </div>
+  <div class="grp-btn">
+        <button ion-button color='dark' *ngFor="let question of questionArray">{{question}}</button>
   </div>
 
-  <ion-footer>
-      <div class="grp-btn">
-            <button ion-button color='dark' *ngFor="let question of questionArray">{{question}}</button>
-      </div>
-      <button ion-button full color='dark'>Finish</button>
-  </ion-footer>
 </ion-content>
+<ion-footer>
+    <button ion-button full color='dark'>Finish</button>
+</ion-footer>

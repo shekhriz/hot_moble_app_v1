@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { QuestionPage } from '../question/question';
 import { HomePage } from '../home/home';
-import { GeneralQuestionPage } from '../general-question/general-question';
 /**
- * Generated class for the RateSkillsPage page.
+ * Generated class for the GeneralQuestionPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,24 +11,23 @@ import { GeneralQuestionPage } from '../general-question/general-question';
 
 @IonicPage()
 @Component({
-  selector: 'page-rate-skills',
-  templateUrl: 'rate-skills.html',
+  selector: 'page-general-question',
+  templateUrl: 'general-question.html',
 })
-export class RateSkillsPage {
+export class GeneralQuestionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RateSkillsPage');
-  }
-
-  logout(){
-    this.navCtrl.push(HomePage);
+    console.log('ionViewDidLoad GeneralQuestionPage');
   }
 
   gotoQuestionPage(){
-    this.navCtrl.push(GeneralQuestionPage);
+    this.navCtrl.push(QuestionPage);
+  }
+  logout(){
+    this.navCtrl.push(HomePage);
   }
 
 }

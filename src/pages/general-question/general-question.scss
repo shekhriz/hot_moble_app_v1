@@ -1,8 +1,4 @@
-page-question {
-  .item-md.item-block .item-inner{
-    border: none !important;
-  }
-
+page-general-question {
   ion-header{
     ion-navbar{
       .toolbar-background-md{
@@ -32,22 +28,18 @@ page-question {
       }
     }
   }
-
   ._list{
-    border-bottom: solid 1px #424242;
-    min-height: 300px;
-    .question{
-      font-size: 16px;
-      font-weight: 400;
-    }
-    .question-container{
-      margin-top: 20px;
-      .border{
-        border: solid 1px #f4f4f4;
-        margin-bottom: 10px;
-        margin-top: 10px;
+    .quest-block{
+      margin-bottom: 20px;
+      label{
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+      }
+      textarea{
+        font-size: 17px;
+        padding: 7px;
         width: 100%;
-        padding: 5px;
         resize: none;
       }
       input[type=text]:focus, textarea:focus {
@@ -55,20 +47,5 @@ page-question {
         border: 1px solid #424242;
       }
     }
-    .float-right{
-      float: right;
-    }
-
   }
-  .grp-btn{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    button{
-      padding: 15px;
-      margin: 5px;
-      width: 50px;
-    }
-  }
-
 }

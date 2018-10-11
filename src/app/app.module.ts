@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { RateSkillsPage } from '../pages/rate-skills/rate-skills';
 import { QuestionPage } from '../pages/question/question';
+import { GeneralQuestionPage } from '../pages/general-question/general-question';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { QuestionPage } from '../pages/question/question';
     HomePage,
     RegisterPage,
     RateSkillsPage,
+    GeneralQuestionPage,
     QuestionPage
   ],
   imports: [
@@ -28,6 +30,7 @@ import { QuestionPage } from '../pages/question/question';
     HomePage,
     RegisterPage,
     RateSkillsPage,
+    GeneralQuestionPage,
     QuestionPage
   ],
   providers: [
