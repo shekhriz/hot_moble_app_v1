@@ -23,7 +23,9 @@
     <div class="question-container">
       <textarea placeholder="Please write answer here..."class="border" name="name" rows="10"></textarea>
     </div>
-    <button class="float-right" ion-button color='dark'>Save</button>
+    <div class="float-right">
+      <button ion-button color='dark'>Save</button>
+    </div>
   </div>
   <div class="grp-btn">
         <button ion-button color='dark' *ngFor="let question of questionArray">{{question}}</button>

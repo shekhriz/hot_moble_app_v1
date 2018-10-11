@@ -35,7 +35,7 @@ page-question {
 
   ._list{
     border-bottom: solid 1px #424242;
-    min-height: 300px;
+    padding-bottom: 20px;
     .question{
       font-size: 16px;
       font-weight: 400;
@@ -49,6 +49,7 @@ page-question {
         width: 100%;
         padding: 5px;
         resize: none;
+        font-size: 16px;
       }
       input[type=text]:focus, textarea:focus {
         box-shadow:0px 0px 5px #424242;
@@ -56,7 +57,10 @@ page-question {
       }
     }
     .float-right{
-      float: right;
+      text-align: right;
+      button{
+        width: 100px;
+      }
     }
 
   }
