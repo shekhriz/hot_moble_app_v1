@@ -1,8 +1,8 @@
 {
   "name": "hot_v1",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "HOT Team",
+  "homepage": "https://www.hookedontalent.com/",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -42,7 +42,7 @@
     "@ionic/app-scripts": "3.2.0",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project",
+  "description": "It is mobile application for taking the candidate interview.",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

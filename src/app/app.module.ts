@@ -10,7 +10,8 @@ import { RegisterPage } from '../pages/register/register';
 import { RateSkillsPage } from '../pages/rate-skills/rate-skills';
 import { QuestionPage } from '../pages/question/question';
 import { GeneralQuestionPage } from '../pages/general-question/general-question';
-
+import { HttpClientModule } from '@angular/common/http';
+import { RestProvider } from '../providers/rest/rest';
 @NgModule({
   declarations: [
     MyApp,
@@ -22,6 +23,7 @@ import { GeneralQuestionPage } from '../pages/general-question/general-question'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -36,7 +38,8 @@ import { GeneralQuestionPage } from '../pages/general-question/general-question'
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RestProvider
   ]
 })
 export class AppModule {}
