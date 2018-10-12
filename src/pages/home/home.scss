@@ -90,10 +90,10 @@ page-home {
   {
     ion-content{
       .logo{        
-        margin-top: 40px !important;        
+        margin-top: 20px !important;        
       }      
       .login_body{
-        margin-top: 30px !important;
+        margin-top: 20px !important;
         width: 76%;
         margin-left: 12%;              
       }  
@@ -163,10 +163,10 @@ page-home {
   {
     ion-content{
       .logo{        
-        margin-top: 40px !important;        
+        margin-top: 20px !important;        
       }      
       .login_body{
-        margin-top: 30px !important;
+        margin-top: 20px !important;
         width: 76%;
         margin-left: 12%;              
       }  
@@ -181,7 +181,7 @@ page-home {
   @media(min-width: 765px) and (max-width: 1023px) and ( max-height: 610px){
     ion-content{
       .logo{        
-        margin-top: 30px;        
+        margin-top: 10px;        
       }
       .loginButton{
         width: 76%;
@@ -189,7 +189,7 @@ page-home {
         font-size: 18px;
       }
       .login_body{
-        margin-top: 20px;
+        margin-top: 10px;
         width: 76%;
         margin-left: 12%;
         font-size: 25px;
