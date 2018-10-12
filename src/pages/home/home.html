@@ -15,6 +15,10 @@
     </ion-list>
 
     <button *ngIf='!isOTP' ion-button full color='light' (click)="genarateOTP()">Generate OTP</button>
+    <div class="regOtp" *ngIf='!isOTP'>
+      <a (click)="connectUs(3)">Need help ? click me</a>
+    </div>
+
     <button *ngIf='isOTP' ion-button full color='light' (click)="login()">Login</button>
     <div class="regOtp" *ngIf='isOTP'>
       <a (click)="reGenarateOTP()">Resend OTP</a>

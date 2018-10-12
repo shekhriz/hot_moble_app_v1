@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController,LoadingController } from 'ionic-angular';
+import { ModalController,NavController,LoadingController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { RestProvider } from '../../providers/rest/rest';
-
+import { ModalPage } from '../modal/modal';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  email:string;
+  email:string='test@yopmail.com';
+  emailBKP:string;
   otp:string;
   isOTP:boolean = false;
-  constructor(public navCtrl: NavController,public restProvider: RestProvider,public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController,public restProvider: RestProvider,public loadingCtrl: LoadingController,
+    public modalCtrl : ModalController) {
   }
 
   genarateOTP(){
@@ -29,16 +31,14 @@ export class HomePage {
     }
 
     loading.present();
-    let jsonData = {
-      emailId:this.email
-    }
-    this.restProvider.getOTP(jsonData)
+    this.restProvider.getOTP(this.email)
     .then(data => {
       this.isOTP = true;
+      this.emailBKP = this.email;
       this.email = "";
       loading.dismiss();
       this.restProvider.showToast("OTP has been sent successfully to registered email.","SUCCESS");
-      console.log(data);
+      // console.log(data);
     },error => {
         loading.dismiss();
         this.restProvider.showToast("Something went wrong.","ERROR");
@@ -50,6 +50,7 @@ export class HomePage {
     this.isOTP = false;
     this.otp = "";
     this.email = "";
+    this.emailBKP = "";
   }
 
   login(){
@@ -63,16 +64,30 @@ export class HomePage {
 
     loading.present();
     let jsonData = {
-      otp:this.otp
+      "emailId": this.emailBKP,
+      "id": 0,
+      "otp": parseInt(this.otp)
     }
 
     this.restProvider.verifyOTP(jsonData)
     .then(data => {
+      loading.dismiss();
+      if(data == "Email doesn't exist"){
+        this.restProvider.showToast("Candidate is not associated with us.","ERROR");
+        return
+      }
+
+      if(data == "Error"){
+        this.restProvider.showToast("Please enter valid OTP.","ERROR");
+        return
+      }
+
       this.isOTP = false;
       this.otp = "";
-      loading.dismiss();
-      this.navCtrl.push(RegisterPage,{param1 : "hello" , param2 : "world"});
-      console.log(data);
+
+      this.restProvider.setCandidate(data);
+      this.navCtrl.push(RegisterPage);
+
     },error => {
         loading.dismiss();
         this.restProvider.showToast("Something went wrong.","ERROR");
@@ -86,6 +101,14 @@ export class HomePage {
           return false;
       }
       return true;
+  }
+
+  connectUs(mCode){
+    var data = {
+      code : mCode
+    };
+    var modalPage = this.modalCtrl.create('ModalPage',data);
+    modalPage.present();
   }
 
 }

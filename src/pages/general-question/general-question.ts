@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { QuestionPage } from '../question/question';
 import { HomePage } from '../home/home';
+import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the GeneralQuestionPage page.
  *
@@ -16,7 +17,7 @@ import { HomePage } from '../home/home';
 })
 export class GeneralQuestionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider) {
   }
 
   ionViewDidLoad() {
@@ -28,6 +29,7 @@ export class GeneralQuestionPage {
   }
   logout(){
     this.navCtrl.push(HomePage);
+    this.restProvider.removeCandidate();
   }
 
 }

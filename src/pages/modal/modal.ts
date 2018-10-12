@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController,IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the ModalPage page.
  *
@@ -14,8 +15,15 @@ import { ViewController,IonicPage, NavController, NavParams } from 'ionic-angula
 })
 export class ModalPage {
   code:string;
-  data:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl : ViewController) {
+  reqId:string;
+  candidateId:string;
+  name:string;
+  email:string;
+  phone:string;
+  subject:string;
+  message:string;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl : ViewController,public restProvider: RestProvider) {
   }
 
   ionViewDidLoad() {
@@ -24,6 +32,31 @@ export class ModalPage {
 
   closeModal(){
     this.viewCtrl.dismiss();
+  }
+
+  savaData(){
+    if((this.name == undefined    || this.name == "")    ||
+       (this.email == undefined   || this.email == "")   ||
+       (this.phone == undefined   || this.phone == "")   ||
+       (this.subject == undefined || this.subject == "") ||
+       (this.message == undefined || this.message == "")) {
+        this.restProvider.showToast("All fields are mandatory.","ERROR");
+        return;
+    }
+
+    let jsonObj = {
+       "reqId":"",
+       "candidateId":"",
+       "name":"",
+       "email":"",
+       "phone":"",
+       "subject":"",
+       "message":"",
+    }
+
+    console.log(jsonObj);
+    this.viewCtrl.dismiss();
+    this.restProvider.showToast("Thanks for contact with us, We will contact you soon.","SUCCESS");
   }
 
 }

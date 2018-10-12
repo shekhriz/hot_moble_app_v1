@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { GeneralQuestionPage } from '../general-question/general-question';
+import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the RateSkillsPage page.
  *
@@ -16,7 +17,7 @@ import { GeneralQuestionPage } from '../general-question/general-question';
 })
 export class RateSkillsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider) {
   }
 
   ionViewDidLoad() {
@@ -25,6 +26,7 @@ export class RateSkillsPage {
 
   logout(){
     this.navCtrl.push(HomePage);
+    this.restProvider.removeCandidate();
   }
 
   gotoQuestionPage(){

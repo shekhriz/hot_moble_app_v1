@@ -3,6 +3,7 @@ import { ModalController ,IonicPage, NavController, NavParams } from 'ionic-angu
 import { HomePage } from '../home/home';
 import { RateSkillsPage } from '../rate-skills/rate-skills';
 import { ModalPage } from '../modal/modal';
+import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the RegisterPage page.
  *
@@ -16,11 +17,11 @@ import { ModalPage } from '../modal/modal';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-    private param1 : string ;
-    private param2 : string ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl : ModalController) {
-        this.param1 = this.navParams.get("param1");
-        this.param2 = this.navParams.get("param2");
+  candidate:any;
+  constructor(public navCtrl: NavController,public restProvider: RestProvider, public navParams: NavParams,public modalCtrl : ModalController) {
+        this.candidate = this.restProvider.getCandidate();
+        console.log('--------candidate----------');
+        console.log(this.candidate);
   }
 
   ionViewDidLoad() {
@@ -28,6 +29,7 @@ export class RegisterPage {
 
   logout(){
     this.navCtrl.push(HomePage);
+    this.restProvider.removeCandidate();
   }
 
   openModal(mCode){

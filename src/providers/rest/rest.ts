@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+
 /*
   Generated class for the RestProvider provider.
 
@@ -10,6 +11,7 @@ import { ToastController } from 'ionic-angular';
 @Injectable()
 export class RestProvider {
   apiUrl = 'http://qa.hookedontalent.com/';
+  // apiUrl = 'http://localhost:8080/';
   constructor(public http: HttpClient,private toastCtrl: ToastController) {
   }
 
@@ -25,7 +27,7 @@ export class RestProvider {
 
   getOTP(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'otpGeneration', JSON.stringify(data))
+      this.http.post(this.apiUrl+'otpGeneration', data)
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -36,8 +38,9 @@ export class RestProvider {
 
   verifyOTP(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'otpVerification', JSON.stringify(data))
-        .subscribe(res => {
+      this.http.post(this.apiUrl+'otpVerification', JSON.stringify(data),{
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+       }).subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -53,6 +56,7 @@ export class RestProvider {
            position: 'top',
            cssClass: "toastCssError",
           });
+          toast.present();
       }else if(type == 'SUCCESS'){
         let toast = this.toastCtrl.create({
            message: msg,
@@ -60,8 +64,18 @@ export class RestProvider {
            position: 'top',
            cssClass: "toastCssSuccess",
           });
+          toast.present();
       }
-      toast.present();
+  }
+
+  getCandidate(){
+    return JSON.parse(window.localStorage.getItem('loginCandidate'));
+  }
+  setCandidate(candidate){
+    window.localStorage.setItem( 'loginCandidate',JSON.stringify(candidate));
+  }
+  removeCandidate(){
+    window.localStorage.setItem( 'loginCandidate',null);
   }
 
 }
