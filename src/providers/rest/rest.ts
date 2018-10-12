@@ -45,14 +45,23 @@ export class RestProvider {
     });
   }
 
-  showToast(msg) {
-    let toast = this.toastCtrl.create({
-       message: msg,
-       duration: 3000,
-       position: 'top',
-       cssClass: "toastCss",
-      });
+  showToast(msg,type) {
+      if(type == 'ERROR'){
+        let toast = this.toastCtrl.create({
+           message: msg,
+           duration: 3000,
+           position: 'top',
+           cssClass: "toastCssError",
+          });
+      }else if(type == 'SUCCESS'){
+        let toast = this.toastCtrl.create({
+           message: msg,
+           duration: 3000,
+           position: 'top',
+           cssClass: "toastCssSuccess",
+          });
+      }
       toast.present();
-    }
+  }
 
 }
