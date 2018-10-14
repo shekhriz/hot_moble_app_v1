@@ -12,26 +12,74 @@
         <img src="https://d2ue829my6ap69.cloudfront.net/images/Logo_white.png" alt="">
       </div>
       <div class="rigth">
-          <ion-icon ios="ios-power" md="md-power" (click)="logout()"></ion-icon>
+          <ion-icon ios="ios-power" md="md-power" (click)="logoutAlert()"></ion-icon>
       </div>
     </div>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div class="_list">
-    <span class="question">Answer the following Questions</span>
-    <div class="question-container">
-      <textarea placeholder="Please write answer here..."class="border" name="name" rows="10"></textarea>
+  <div class="_list" >
+    <div *ngIf='questObjDisplay.type == "subjective"'>
+      <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
+      <div class="question-container">
+        <textarea placeholder="Please write answer here..."class="border" name="name" rows="10"></textarea>
+      </div>
     </div>
+
+    <div *ngIf='questObjDisplay.type == "objective"'>
+      <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
+      <div class="question-container">
+        <ion-list  radio-group [(ngModel)]="questObjDisplay.answer">
+            <ion-item *ngIf='questObjDisplay.option1 != null'>
+              <ion-label>{{questObjDisplay.option1}}</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+            <ion-item *ngIf='questObjDisplay.option2 != null'>
+              <ion-label>{{questObjDisplay.option2}}</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+            <ion-item *ngIf='questObjDisplay.option3 != null'>
+              <ion-label>{{questObjDisplay.option3}}</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+            <ion-item *ngIf='questObjDisplay.option4 != null'>
+              <ion-label>{{questObjDisplay.option4}}</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+            <ion-item *ngIf='questObjDisplay.option5 != null'>
+              <ion-label>{{questObjDisplay.option5}}</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+            <ion-item *ngIf='questObjDisplay.option6 != null'>
+              <ion-label>{{questObjDisplay.option6}}</ion-label>
+              <ion-radio value="cord" color='dark'></ion-radio>
+            </ion-item>
+          </ion-list>
+      </div>
+    </div>
+
+    <div *ngIf='questObjDisplay.type == "video"'>
+      <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
+      <div class="question-container">
+        <div class="tempSpan">
+          <h2>Video Question</h2>
+          <span>we can't upoload video from virtual device.
+          we can upload video using real device.</span>
+        </div>
+
+      </div>
+    </div>
+
     <div class="float-right">
-      <button ion-button color='dark'>Save</button>
+      <button ion-button class="bc-info" (click)="saveResponse()">Save</button>
     </div>
   </div>
   <div class="grp-btn">
-        <button ion-button color='dark' *ngFor="let question of questionArray">{{question}}</button>
+        <button ion-button color='dark' *ngFor="let question of questionArray" (click)="toggleClass(question)"
+          [ngClass]="{'bc-info': question.status}">{{question.no}}</button>
   </div>
 
 </ion-content>
 <ion-footer>
-    <button ion-button full color='dark'>Finish</button>
+    <button ion-button full color='dark'(click)="finishInterview()">Finish</button>
 </ion-footer>

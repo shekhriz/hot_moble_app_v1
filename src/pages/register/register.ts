@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController ,IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController ,IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RateSkillsPage } from '../rate-skills/rate-skills';
 import { ModalPage } from '../modal/modal';
@@ -18,7 +18,8 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class RegisterPage {
   candidate:any;
-  constructor(public navCtrl: NavController,public restProvider: RestProvider, public navParams: NavParams,public modalCtrl : ModalController) {
+  constructor(public navCtrl: NavController,public restProvider: RestProvider, public navParams: NavParams,public modalCtrl : ModalController,
+  public alertCtrl: AlertController) {
         this.candidate = this.restProvider.getCandidate();
         console.log('--------candidate----------');
         console.log(this.candidate);
@@ -42,6 +43,27 @@ export class RegisterPage {
 
   gotoSkillsRatePage(){
     this.navCtrl.push(RateSkillsPage)
+  }
+
+  logoutAlert() {
+    let alert = this.alertCtrl.create({
+        title: 'Log-Out',
+        message: 'Are you sure you want to Log-out ?',
+        buttons: [
+            {
+                text: 'No',
+                handler: () => {
+                }
+            },
+            {
+                text: 'Yes',
+                handler: () => {
+                  this.logout();
+                }
+            }
+        ]
+    });
+    alert.present();
   }
 
 }

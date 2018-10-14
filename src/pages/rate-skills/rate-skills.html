@@ -12,7 +12,7 @@
         <img src="https://d2ue829my6ap69.cloudfront.net/images/Logo_white.png" alt="">
       </div>
       <div class="rigth">
-          <ion-icon ios="ios-power" md="md-power" (click)="logout()"></ion-icon>
+          <ion-icon ios="ios-power" md="md-power" (click)="logoutAlert()"></ion-icon>
       </div>
     </div>
   </ion-navbar>
@@ -24,21 +24,9 @@
     <span>Please Rate Yourself</span>
   </div>
     <ion-list class="rate-list">
-      <ion-item>
-        <ion-label>Angualr js</ion-label>
-        <ion-range min="0" max="100" step="20" snaps="true" pin="true" color="dark" [(ngModel)]="singleValue1"></ion-range>
-      </ion-item>
-      <ion-item>
-        <ion-label>Java Script</ion-label>
-        <ion-range min="0" max="100" step="20" snaps="true" pin="true" color="dark" [(ngModel)]="singleValue2"></ion-range>
-      </ion-item>
-      <ion-item>
-        <ion-label>Php</ion-label>
-        <ion-range min="0" max="100" step="20" snaps="true" pin="true" color="dark" [(ngModel)]="singleValue3"></ion-range>
-      </ion-item>
-      <ion-item>
-        <ion-label>MySql</ion-label>
-        <ion-range min="0" max="100" step="20" snaps="true" pin="true" color="dark" [(ngModel)]="singleValue4"></ion-range>
+      <ion-item *ngFor="let skill of reqSkills">
+        <ion-label>{{skill.skills}}</ion-label>
+        <ion-range min="0" max="100" step="20" snaps="true" pin="true" color="dark" [(ngModel)]="skill.score"></ion-range>
       </ion-item>
     </ion-list>
 

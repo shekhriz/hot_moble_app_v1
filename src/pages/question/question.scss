@@ -36,12 +36,26 @@ page-question {
   ._list{
     border-bottom: solid 1px #424242;
     padding-bottom: 20px;
+    min-height: 370px;
     .question{
       font-size: 16px;
-      font-weight: 400;
+      font-weight: bold;
     }
     .question-container{
       margin-top: 20px;
+      min-height: 250px;
+      .tempSpan{
+        text-align: center;
+        border: solid 1px #f4f4f4;
+        padding: 10px;
+        padding-top: 20px;
+        h2{
+          font-size: 18px;
+        }
+        span{
+          font-size: 16px;
+        }
+      }
       .border{
         border: solid 1px #f4f4f4;
         margin-bottom: 10px;
