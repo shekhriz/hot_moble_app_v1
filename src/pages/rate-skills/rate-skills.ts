@@ -16,17 +16,15 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'rate-skills.html',
 })
 export class RateSkillsPage {
-  interviewStatus:string;
+  interviewStatus:any;
   candidate:any;
-  reqSkills:Array<String> = [];
+  reqSkills:Array<Object> = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public restProvider: RestProvider,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController) {
       this.candidate = this.restProvider.getCandidate();
       this.getInterviewStatus(this.candidate.positionCandidates.candidateLink);
-      this.candidate.requirementDetailsBean.primarySkill = "java,php,Anguale Js,Ionic,Laravel";
-      this.candidate.requirementDetailsBean.secondarySkill = "My Sql,MongoDb,CouchDB";
       let pSkills = this.candidate.requirementDetailsBean.primarySkill.split(',');
       let sSkills = this.candidate.requirementDetailsBean.secondarySkill.split(',');
       Object.keys(pSkills).forEach(key=> {

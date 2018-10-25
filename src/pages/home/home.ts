@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ModalController,NavController,LoadingController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { RestProvider } from '../../providers/rest/rest';
-import { ModalPage } from '../modal/modal';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -84,7 +83,7 @@ export class HomePage {
 
       this.isOTP = false;
       this.otp = "";
-
+      // data.positionCandidates.candidateLink = 'da44b5f4-55bb-43ce-987a-c2e8368e5932';
       this.restProvider.setCandidate(data);
       this.navCtrl.push(RegisterPage);
 

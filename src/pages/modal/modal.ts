@@ -49,9 +49,9 @@ export class ModalPage {
         this.restProvider.showToast("All fields are mandatory.","ERROR");
         return;
     }
-
+    let jsonObj = {};
     if(this.candidate != null){
-      let jsonObj = {
+      jsonObj = {
          "id":0,
          "candidateId":this.candidate.candidates.candidateId,
          "candidateFirstName":this.name,
@@ -64,7 +64,7 @@ export class ModalPage {
          "uniqueId":this.candidate.positionCandidates.candidateLink
       }
     }else{
-      let jsonObj = {
+      jsonObj = {
          "id":0,
          "candidateId":0,
          "candidateFirstName":this.name,
@@ -82,7 +82,7 @@ export class ModalPage {
     // console.log(jsonObj);
     loading.present();
     this.restProvider.addFeedback(jsonObj)
-    .then(data => {
+    .then(data => {  
       this.viewCtrl.dismiss();
       loading.dismiss();
       this.restProvider.showToast("Your feedback saved successfully, we will contact you soon.","SUCCESS");

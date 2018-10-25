@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ModalController ,IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RateSkillsPage } from '../rate-skills/rate-skills';
-import { ModalPage } from '../modal/modal';
 import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the RegisterPage page.

@@ -32,27 +32,27 @@
         <ion-list  radio-group [(ngModel)]="questObjDisplay.answer">
             <ion-item *ngIf='questObjDisplay.option1 != null'>
               <ion-label>{{questObjDisplay.option1}}</ion-label>
-              <ion-radio value="cord" color='dark'></ion-radio>
+              <ion-radio value="{{questObjDisplay.option1}}" color='dark'></ion-radio>
             </ion-item>
             <ion-item *ngIf='questObjDisplay.option2 != null'>
               <ion-label>{{questObjDisplay.option2}}</ion-label>
-              <ion-radio value="cord" color='dark'></ion-radio>
+              <ion-radio value="{{questObjDisplay.option2}}" color='dark'></ion-radio>
             </ion-item>
             <ion-item *ngIf='questObjDisplay.option3 != null'>
               <ion-label>{{questObjDisplay.option3}}</ion-label>
-              <ion-radio value="cord" color='dark'></ion-radio>
+              <ion-radio value="{{questObjDisplay.option3}}" color='dark'></ion-radio>
             </ion-item>
             <ion-item *ngIf='questObjDisplay.option4 != null'>
               <ion-label>{{questObjDisplay.option4}}</ion-label>
-              <ion-radio value="cord" color='dark'></ion-radio>
+              <ion-radio value="{{questObjDisplay.option4}}" color='dark'></ion-radio>
             </ion-item>
             <ion-item *ngIf='questObjDisplay.option5 != null'>
               <ion-label>{{questObjDisplay.option5}}</ion-label>
-              <ion-radio value="cord" color='dark'></ion-radio>
+              <ion-radio value="{{questObjDisplay.option5}}" color='dark'></ion-radio>
             </ion-item>
             <ion-item *ngIf='questObjDisplay.option6 != null'>
               <ion-label>{{questObjDisplay.option6}}</ion-label>
-              <ion-radio value="cord" color='dark'></ion-radio>
+              <ion-radio value="{{questObjDisplay.option6}}" color='dark'></ion-radio>
             </ion-item>
           </ion-list>
       </div>
@@ -75,8 +75,8 @@
     </div>
   </div>
   <div class="grp-btn">
-        <button ion-button color='dark' *ngFor="let question of questionArray" (click)="toggleClass(question)"
-          [ngClass]="{'bc-info': question.status}">{{question.no}}</button>
+        <button ion-button color='dark' *ngFor="let question of questions" (click)="toggleClass(question)"
+          [ngClass]="{'bc-info': question.qstatus}">{{question.no}}</button>
   </div>
 
 </ion-content>

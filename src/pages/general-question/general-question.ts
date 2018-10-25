@@ -17,7 +17,7 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class GeneralQuestionPage {
   candidate:any;
-  data:any;
+  questions:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public restProvider: RestProvider,
     public loadingCtrl: LoadingController,
@@ -31,16 +31,46 @@ export class GeneralQuestionPage {
   }
 
   gotoQuestionPage(){
+
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+
+    let intrRes = [];
+    let intrSkippedRes = [];
+    Object.keys(this.questions).forEach(key=> {
+      if(this.questions[key].response == ""){
+        intrSkippedRes.push({
+          'questionId': this.questions[key].generalQuestionId,
+          'type': this.questions[key].type
+        });
+      }else{
+        intrRes.push({
+          'questionId': this.questions[key].generalQuestionId,
+          'response': this.questions[key].response
+        });
+      }
+    });
+
+    let jsonObject = {
+      candidateInterviewResponseList:intrRes,
+      candidateInterviewSkippedResponseList:intrSkippedRes
+    }
+
     loading.present();
-    setTimeout(() => {
+    this.restProvider.saveGenaralQuestions(this.candidate.positionCandidates.candidateLink,jsonObject)
+    .then(data => {
       loading.dismiss();
       this.restProvider.showToast("Response saved successfully.","SUCCESS");
       this.navCtrl.push(QuestionPage);
-    }, 2000);
+    },error => {
+        loading.dismiss();
+        this.restProvider.showToast("Something went wrong.","ERROR");
+        console.log(error);
+    });
   }
+
+
   logout(){
     this.navCtrl.push(HomePage);
     this.restProvider.removeCandidate();
@@ -55,7 +85,11 @@ export class GeneralQuestionPage {
     this.restProvider.getGenaralQuestions(uniqueId)
     .then(data => {
       loading.dismiss();
-      // console.log(data);
+      this.questions = [];
+      Object.keys(data).forEach(key=> {
+          data[key].response = '';
+          this.questions.push(data[key]);
+      });
     },error => {
         loading.dismiss();
         this.restProvider.showToast("Error for getting Interview status.","ERROR");
