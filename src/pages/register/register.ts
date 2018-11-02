@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController ,IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { ModalController ,IonicPage, NavController, NavParams,AlertController,Platform  } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RateSkillsPage } from '../rate-skills/rate-skills';
 import { RestProvider } from '../../providers/rest/rest';
@@ -17,14 +17,19 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class RegisterPage {
   candidate:any;
+  vid1:any;
+  vid2:any;
   constructor(public navCtrl: NavController,public restProvider: RestProvider, public navParams: NavParams,public modalCtrl : ModalController,
-  public alertCtrl: AlertController) {
+  public alertCtrl: AlertController,
+  public platform: Platform) {
         this.candidate = this.restProvider.getCandidate();
-        console.log('--------candidate----------');
-        console.log(this.candidate);
   }
 
   ionViewDidLoad() {
+    this.platform.ready().then((readySource) => {
+      this.vid1 = document.getElementById("myVideo1");
+      this.vid2 = document.getElementById("myVideo2");
+    });
   }
 
   logout(){
@@ -33,6 +38,15 @@ export class RegisterPage {
   }
 
   openModal(mCode){
+    this.platform.ready().then((readySource) => {
+      if(this.vid1 != null){
+        this.vid1.pause();
+      }
+      if(this.vid2 != null){
+        this.vid2.pause();
+      }
+    });
+
     var data = {
       code : mCode
     };
@@ -41,10 +55,26 @@ export class RegisterPage {
   }
 
   gotoSkillsRatePage(){
-    this.navCtrl.push(RateSkillsPage)
+    this.platform.ready().then((readySource) => {
+      if(this.vid1 != null){
+        this.vid1.pause();
+      }
+      if(this.vid2 != null){
+        this.vid2.pause();
+      }
+    });
+    this.navCtrl.push(RateSkillsPage);
   }
 
   logoutAlert() {
+    this.platform.ready().then((readySource) => {
+      if(this.vid1 != null){
+        this.vid1.pause();
+      }
+      if(this.vid2 != null){
+        this.vid2.pause();
+      }
+    });
     let alert = this.alertCtrl.create({
         title: 'Log-Out',
         message: 'Are you sure you want to Log-out ?',

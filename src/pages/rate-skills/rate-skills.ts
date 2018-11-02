@@ -43,7 +43,7 @@ export class RateSkillsPage {
           })
         }
       });
-      console.log(this.reqSkills);
+      // console.log(this.reqSkills);
   }
 
   ionViewDidLoad() {

@@ -22,14 +22,14 @@
     <div *ngIf='questObjDisplay.type == "subjective"'>
       <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
       <div class="question-container">
-        <textarea placeholder="Please write answer here..."class="border" name="name" rows="10"></textarea>
+        <textarea placeholder="Please write answer here..."class="border" name="name" rows="10" [(ngModel)]="questObjDisplay.response"></textarea>
       </div>
     </div>
 
     <div *ngIf='questObjDisplay.type == "objective"'>
       <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
       <div class="question-container">
-        <ion-list  radio-group [(ngModel)]="questObjDisplay.answer">
+        <ion-list  radio-group [(ngModel)]="questObjDisplay.response">
             <ion-item *ngIf='questObjDisplay.option1 != null'>
               <ion-label>{{questObjDisplay.option1}}</ion-label>
               <ion-radio value="{{questObjDisplay.option1}}" color='dark'></ion-radio>
@@ -63,20 +63,21 @@
       <div class="question-container">
         <div class="tempSpan">
           <h2>Video Question</h2>
-          <span>we can't upoload video from virtual device.
-          we can upload video using real device.</span>
+          <button ion-button outline (click)="startRecording()">Record</button>
         </div>
-
       </div>
     </div>
 
-    <div class="float-right">
-      <button ion-button class="bc-info" (click)="saveResponse()">Save</button>
+    <div class="float-right" *ngIf='questObjDisplay.type != "video"'>
+      <button ion-button class="bc-info" (click)="uploadTechnicalQuestion()">Save</button>
     </div>
   </div>
   <div class="grp-btn">
         <button ion-button color='dark' *ngFor="let question of questions" (click)="toggleClass(question)"
           [ngClass]="{'bc-info': question.qstatus}">{{question.no}}</button>
+
+          <!-- <button ion-button color='light' *ngFor="let question of questions;let i = index" (click)="toggleClass(question)"
+            [ngClass]="{'btn-active':question.displayed,'btn-skipped': seen.indexOf(question.no) > -1, 'btn-answered':succ.indexOf(index+1) > -1}">{{question.no}}</button> -->
   </div>
 
 </ion-content>

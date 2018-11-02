@@ -129,6 +129,31 @@ export class RestProvider {
     });
   }
 
+  saveAllTechnicalQuestion(uniqueId,data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl+'hotlab/interview/questions/technical/response/'+uniqueId, JSON.stringify(data),{
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+       }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  saveVideoQuestion(uniqueId,qId,blob) {
+    console.log(blob);
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl+'hotlab/interview/upload/video/'+qId+'/'+uniqueId, blob,{
+        headers: new HttpHeaders().set('Content-Type', 'video/webm')
+      }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
 
 // Code for Toaster
   showToast(msg,type) {

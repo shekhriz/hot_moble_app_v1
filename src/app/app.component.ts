@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform,AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
@@ -12,7 +12,9 @@ import { RestProvider } from '../providers/rest/rest';
 export class MyApp {
   rootPage:any;
   candidate:any;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public restProvider: RestProvider,) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+    public restProvider: RestProvider,
+    public alertCtrl: AlertController) {
     platform.ready().then(() => {
       this.candidate = this.restProvider.getCandidate();
       if(this.candidate != null){
@@ -24,6 +26,26 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      platform.registerBackButtonAction(() => {
+            const alert = this.alertCtrl.create({
+                title: 'Close Application',
+                message: 'Are you sure you want to close application?',
+                buttons: [{
+                    text: 'NO',
+                    role: 'NO',
+                    handler: () => {
+                        console.log('Application exit prevented!');
+                    }
+                },{
+                    text: 'YES',
+                    handler: () => {
+                        platform.exitApp();
+                    }
+                }]
+            });
+            alert.present();
+        });
     });
   }
 }

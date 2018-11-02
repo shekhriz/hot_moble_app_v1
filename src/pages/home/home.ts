@@ -7,7 +7,7 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  email:string='test@yopmail.com';
+  email:string;
   emailBKP:string;
   otp:string;
   isOTP:boolean = false;

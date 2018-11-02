@@ -47,13 +47,13 @@ page-question {
       .tempSpan{
         text-align: center;
         border: solid 1px #f4f4f4;
-        padding: 10px;
-        padding-top: 20px;
+        padding: 40px;
         h2{
           font-size: 18px;
         }
-        span{
-          font-size: 16px;
+        button{
+          min-width: 100px;
+          text-transform: none;
         }
       }
       .border{
@@ -74,6 +74,7 @@ page-question {
       text-align: right;
       button{
         width: 100px;
+        text-transform: none;
       }
     }
 
@@ -86,7 +87,23 @@ page-question {
       padding: 15px;
       margin: 5px;
       width: 50px;
+      text-transform: none;
+      font-weight: bold;
     }
+
+    .btn-active{
+      background-color: #40bbea !important;
+      color: #fff;
+    }
+    .btn-skipped{
+      background-color: #e13838 !important;
+      color: #fff;
+    }
+    .btn-answered{
+      background-color: green !important;
+      color: #fff;
+    }
+
   }
 
 }
