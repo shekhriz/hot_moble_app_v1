@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController ,AlertController} from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { GeneralQuestionPage } from '../general-question/general-question';
+import { QuestionPage } from '../question/question';
 import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the RateSkillsPage page.
@@ -16,7 +15,6 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'rate-skills.html',
 })
 export class RateSkillsPage {
-  interviewStatus:any;
   candidate:any;
   reqSkills:Array<Object> = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -24,8 +22,8 @@ export class RateSkillsPage {
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController) {
       this.candidate = this.restProvider.getCandidate();
-      this.getInterviewStatus(this.candidate.positionCandidates.candidateLink);
-      let pSkills = this.candidate.requirementDetailsBean.primarySkill.split(',');
+      
+      let pSkills = this.candidate.requirementDetailsBean.primarySkill.split(',');  
       let sSkills = this.candidate.requirementDetailsBean.secondarySkill.split(',');
       Object.keys(pSkills).forEach(key=> {
         if(pSkills[key] != ""){
@@ -50,11 +48,7 @@ export class RateSkillsPage {
     console.log('ionViewDidLoad RateSkillsPage');
   }
 
-  logout(){
-    this.navCtrl.push(HomePage);
-    this.restProvider.removeCandidate();
-  }
-
+  
   gotoQuestionPage(){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -63,15 +57,16 @@ export class RateSkillsPage {
     loading.present();
     this.restProvider.saveSkills(this.candidate.positionCandidates.candidateLink,this.reqSkills)
     .then(data => {
+      // SET INTERVIEW STATUS
+      let statusData = {
+        uniqueId:this.candidate.positionCandidates.candidateLink,
+        interviewStatus:"technical"
+      }
+      this.restProvider.setInterviewStatus(statusData)
+      .then(res=>{},error=>{});
       loading.dismiss();
       this.restProvider.showToast("Skills saved successfully.","SUCCESS");
-      console.log(this.interviewStatus);
-      if(this.interviewStatus == "technical"){
-
-      }else if(this.interviewStatus == "general"){
-
-      }
-      this.navCtrl.push(GeneralQuestionPage);
+      this.navCtrl.push(QuestionPage);
     },error => {
         loading.dismiss();
         this.restProvider.showToast("Something went wrong.","ERROR");
@@ -79,34 +74,5 @@ export class RateSkillsPage {
     });
   }
 
-  getInterviewStatus(uniqueId){
-    this.restProvider.getInterviewStatus(uniqueId)
-    .then(data => {
-      this.interviewStatus = data;
-    },error => {
-        console.log(error);
-    });
-  }
-
-  logoutAlert() {
-    let alert = this.alertCtrl.create({
-        title: 'Log-Out',
-        message: 'Are you sure you want to Log-out ?',
-        buttons: [
-            {
-                text: 'No',
-                handler: () => {
-                }
-            },
-            {
-                text: 'Yes',
-                handler: () => {
-                  this.logout();
-                }
-            }
-        ]
-    });
-    alert.present();
-  }
-
+ 
 }

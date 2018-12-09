@@ -1,0 +1,31 @@
+page-select-requirement {
+    ion-content{
+        .label{
+            margin-top: 10px;
+            ion-label{
+                font-weight: 700;
+                font-size: 20px;
+            }
+        }
+
+        .label2{
+            margin-top: 50px;
+            text-align: center;
+            span{
+                font-weight: 700;
+                font-size: 20px;
+            }
+        }
+        .body-select{
+            .display{
+                display: none;
+                font-weight: 200;
+                font-size: 19px;
+            }
+        }
+        .myBtn{
+            margin-top: 40px;
+        }
+        
+    }
+}

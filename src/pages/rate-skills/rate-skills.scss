@@ -48,8 +48,22 @@ page-rate-skills {
   }
   .rate-list{
     margin-top: 20px;
-    ion-item{
-      margin-bottom: 20px;
+    div{
+      span{
+        font-size: 18px;
+        margin-left: 20px;
+        .score{
+          margin-left: 2px;
+          b{
+            font-weight: bold;
+            color: green;
+          }
+        }
+      }
+      ion-item{
+        margin-bottom: 20px;
+      }
     }
+   
   }
 }

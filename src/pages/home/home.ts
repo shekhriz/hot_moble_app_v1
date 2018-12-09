@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController,NavController,LoadingController } from 'ionic-angular';
-import { RegisterPage } from '../register/register';
+import { SelectRequirementPage } from '../select-requirement/select-requirement';
 import { RestProvider } from '../../providers/rest/rest';
+import { ShowStatusPage } from '../show-status/show-status';
+import { RegisterPage } from '../register/register';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -69,7 +71,7 @@ export class HomePage {
     }
 
     this.restProvider.verifyOTP(jsonData)
-    .then(data => {
+    .then((data:any) => {
       loading.dismiss();
       if(data == "Email doesn't exist"){
         this.restProvider.showToast("Candidate is not associated with us.","ERROR");
@@ -83,14 +85,85 @@ export class HomePage {
 
       this.isOTP = false;
       this.otp = "";
-      // data.positionCandidates.candidateLink = 'da44b5f4-55bb-43ce-987a-c2e8368e5932';
-      this.restProvider.setCandidate(data);
-      this.navCtrl.push(RegisterPage);
 
+      if(data.candidates.candidateId == null && data.reqDetailsForApp.length == 0){
+        this.restProvider.showToast("Sorry you are not associated with us.","ERROR");
+        return
+      }
+
+      if(data.reqDetailsForApp.length == 1){
+        let JsonData = {
+          'reqDetailsForApp'      :  data.reqDetailsForApp[0],
+          'candidates'            :  data.candidates,
+          'positionCandidates'    :  data.positionCandidates[0],
+          'requirementDetailsBean':  data.requirementDetailsBean[0]
+        }
+        this.getInterviewDetails(JsonData.positionCandidates.candidateLink,JsonData);
+      }else{
+        this.restProvider.setRowData(data);
+        this.navCtrl.push(SelectRequirementPage);
+      }
     },error => {
         loading.dismiss();
         this.restProvider.showToast("Something went wrong.","ERROR");
         console.log(error);
+    });
+  }
+
+  getInterviewDetails(uniqueId,JsonData){
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.restProvider.getInterviewDetails(uniqueId)
+    .then((candidateProperty:any) => {
+      this.restProvider.getInterviewValidity(uniqueId)
+        .then((response:any) => {
+          loading.dismiss();
+          if(response.candidateEnableDisable=='Enable'){
+            if(response.status=='Open'){
+                if(candidateProperty.linkValidity=='Active'){
+                  this.restProvider.setCandidate(JsonData);
+                  this.navCtrl.push(RegisterPage);
+                }else if(candidateProperty.linkValidity=='InActive'){
+                    if(candidateProperty.linkExpired == "true"){
+                        let toast = {
+                          reqName: JsonData.reqDetailsForApp.jobTitle,
+                          status : 'interviewLinkExpired'
+                        }
+                        this.navCtrl.push(ShowStatusPage,{msg:toast});
+                    }else{
+                        let toast = {
+                          reqName: JsonData.reqDetailsForApp.jobTitle,
+                          status : 'alreadyGivenInterview'
+                        }
+                        this.navCtrl.push(ShowStatusPage,{msg:toast});
+                    }
+                }
+            }else if(response.status=='Closed'){
+                let toast = {
+                  reqName: JsonData.reqDetailsForApp.jobTitle,
+                  status : 'requirementClosed'
+                }
+                this.navCtrl.push(ShowStatusPage,{msg:toast});
+            }
+          }else{
+            let toast = {
+              reqName: JsonData.reqDetailsForApp.jobTitle,
+              status : 'candidateRemoved'
+            }
+            this.navCtrl.push(ShowStatusPage,{msg:toast});
+          }
+
+        },error => {
+            console.log(error);
+            loading.dismiss();
+            this.restProvider.showToast("Something went wrong","ERROR");
+        });
+    },error => {
+        console.log(error);
+        loading.dismiss();
+        this.restProvider.showToast("Something went wrong","ERROR");
     });
   }
 

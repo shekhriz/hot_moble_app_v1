@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController,AlertController } from 'ionic-angular';
-import { QuestionPage } from '../question/question';
+import { RateSkillsPage } from '../rate-skills/rate-skills';
 import { HomePage } from '../home/home';
 import { RestProvider } from '../../providers/rest/rest';
 /**
@@ -41,12 +41,12 @@ export class GeneralQuestionPage {
     Object.keys(this.questions).forEach(key=> {
       if(this.questions[key].response == ""){
         intrSkippedRes.push({
-          'questionId': this.questions[key].generalQuestionId,
+          'questionId': this.questions[key].id,
           'type': this.questions[key].type
         });
       }else{
         intrRes.push({
-          'questionId': this.questions[key].generalQuestionId,
+          'questionId': this.questions[key].id,
           'response': this.questions[key].response
         });
       }
@@ -60,9 +60,15 @@ export class GeneralQuestionPage {
     loading.present();
     this.restProvider.saveGenaralQuestions(this.candidate.positionCandidates.candidateLink,jsonObject)
     .then(data => {
+      let statusData = {
+        uniqueId:this.candidate.positionCandidates.candidateLink,
+        interviewStatus:"skills"
+      }
+      this.restProvider.setInterviewStatus(statusData)
+      .then(res=>{},error=>{});
       loading.dismiss();
       this.restProvider.showToast("Response saved successfully.","SUCCESS");
-      this.navCtrl.push(QuestionPage);
+      this.navCtrl.push(RateSkillsPage);
     },error => {
         loading.dismiss();
         this.restProvider.showToast("Something went wrong.","ERROR");
@@ -83,7 +89,10 @@ export class GeneralQuestionPage {
 
     loading.present();
     this.restProvider.getGenaralQuestions(uniqueId)
-    .then(data => {
+    .then((data:any) => {
+      if(data.length == 0){
+        this.navCtrl.push(RateSkillsPage);
+      }
       loading.dismiss();
       this.questions = [];
       Object.keys(data).forEach(key=> {

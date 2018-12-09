@@ -55,6 +55,7 @@ page-question {
           min-width: 100px;
           text-transform: none;
         }
+       
       }
       .border{
         border: solid 1px #f4f4f4;
@@ -68,6 +69,13 @@ page-question {
       input[type=text]:focus, textarea:focus {
         box-shadow:0px 0px 5px #424242;
         border: 1px solid #424242;
+      }
+    }
+    .submitRes{
+      text-align: center;
+      margin-top: 50px;
+      span{
+        font-size: 20px;
       }
     }
     .float-right{
@@ -89,6 +97,9 @@ page-question {
       width: 50px;
       text-transform: none;
       font-weight: bold;
+      ion-icon{
+        margin-left: 3px;
+      }
     }
 
     .btn-active{

@@ -64,39 +64,46 @@ export class ModalPage {
         this.restProvider.showToast("All fields are mandatory.","ERROR");
         return;
     }
-    let jsonObj = {};
+    let jsonObj:any = {};
     if(this.candidate != null){
-      jsonObj = {
-         "id":0,
-         "candidateId":this.candidate.candidates.candidateId,
-         "candidateFirstName":this.name,
-         "candidateLastName":"",
-         "email":this.email,
-         "phone":this.phone,
-         "subject":this.subject,
-         "message":this.message,
-         "positionId":this.candidate.positionCandidates.positionId,
-         "uniqueId":this.candidate.positionCandidates.candidateLink
-      }
+      jsonObj =  {
+          "candidateFirstName"    : this.name,
+          "candidateId"           : this.candidate.candidates.candidateId,
+          "candidateLastName"     : "",
+          "emailId"               : this.email,
+          "id"                    : 0,
+          "message"               : this.message,
+          "phoneNo"               : this.phone,
+          "positionId"            : this.candidate.positionCandidates.positionId,
+          "subject"               : this.subject,
+          "uniqueId"              : this.candidate.positionCandidates.candidateLink
+        }
+
     }else{
-      jsonObj = {
-         "id":0,
-         "candidateId":0,
-         "candidateFirstName":this.name,
-         "candidateLastName":"",
-         "email":this.email,
-         "phone":this.phone,
-         "subject":this.subject,
-         "message":this.message,
-         "positionId":0,
-         "uniqueId":"da44b5f4-55bb-43ce-987a-c2e8368e5932"
+
+    jsonObj =  {
+        "candidateFirstName"    : this.name,
+        "candidateId"           : 0,
+        "candidateLastName"     : "",
+        "emailId"               : this.email,
+        "id"                    : 0,
+        "message"               : this.message,
+        "phoneNo"               : this.phone,
+        "positionId"            : 0,
+        "subject"               : this.subject,
+        "uniqueId"              : ""
       }
+    }
+
+    if(!this.emailValidate(jsonObj.emailId)){
+      this.restProvider.showToast("Email address is not valid.","ERROR");
+      return;
     }
 
 
     // console.log(jsonObj);
     loading.present();
-    this.restProvider.addFeedback(jsonObj)
+    this.restProvider.addCandFeedback(jsonObj)
     .then(data => {
       this.viewCtrl.dismiss();
       loading.dismiss();
@@ -108,5 +115,13 @@ export class ModalPage {
     });
 
   }
+
+    emailValidate(email) {
+      let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+       if (reg.test(email) == false){
+           return false;
+       }
+       return true;
+   }
 
 }

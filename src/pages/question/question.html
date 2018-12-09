@@ -5,30 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar hideBackButton>
-    <div class="header">
-      <div class="left"></div>
-      <div class="center">
-        <img src="https://d2ue829my6ap69.cloudfront.net/images/Logo_white.png" alt="">
-      </div>
-      <div class="rigth">
-          <ion-icon ios="ios-power" md="md-power" (click)="logoutAlert()"></ion-icon>
-      </div>
-    </div>
-  </ion-navbar>
-</ion-header>
+  <common-header></common-header>
+ </ion-header>
+ 
 <ion-content padding>
   <div class="_list" >
     <div *ngIf='questObjDisplay.type == "subjective"'>
       <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
-      <div class="question-container">
+      <div class="question-container" *ngIf='!questObjDisplay.solved'>
         <textarea placeholder="Please write answer here..."class="border" name="name" rows="10" [(ngModel)]="questObjDisplay.response"></textarea>
+      </div>
+      <div class="submitRes" *ngIf='questObjDisplay.solved'>
+        <span>Response Submitted</span>
       </div>
     </div>
 
     <div *ngIf='questObjDisplay.type == "objective"'>
       <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
-      <div class="question-container">
+      <div class="question-container" *ngIf='!questObjDisplay.solved'>
         <ion-list  radio-group [(ngModel)]="questObjDisplay.response">
             <ion-item *ngIf='questObjDisplay.option1 != null'>
               <ion-label>{{questObjDisplay.option1}}</ion-label>
@@ -56,25 +50,35 @@
             </ion-item>
           </ion-list>
       </div>
+      <div class="submitRes" *ngIf='questObjDisplay.solved'>
+        <span>Response Submitted</span>
+      </div>
     </div>
 
     <div *ngIf='questObjDisplay.type == "video"'>
       <span class="question">{{questObjDisplay.no}}. {{questObjDisplay.questionName}}</span>
-      <div class="question-container">
+      <div class="question-container" *ngIf='!questObjDisplay.solved'>
         <div class="tempSpan">
+          
           <h2>Video Question</h2>
-          <button ion-button outline (click)="startRecording()">Record</button>
-        </div>
+          <!-- <button ion-button outline (click)="startRecording()">Record</button> -->
+        </div>  
+      </div>
+      <div class="submitRes" *ngIf='questObjDisplay.solved'>
+        <span>Response Submitted</span>
       </div>
     </div>
 
-    <div class="float-right" *ngIf='questObjDisplay.type != "video"'>
+    <div class="float-right" *ngIf='questObjDisplay.type != "video" && !questObjDisplay.solved'>
       <button ion-button class="bc-info" (click)="uploadTechnicalQuestion()">Save</button>
     </div>
   </div>
   <div class="grp-btn">
-        <button ion-button color='dark' *ngFor="let question of questions" (click)="toggleClass(question)"
-          [ngClass]="{'bc-info': question.qstatus}">{{question.no}}</button>
+        <button ion-button color='light' *ngFor="let question of questions" (click)="toggleClass(question)"
+          [ngClass]="{'btn-active': question.qstatus,'btn-answered':succ.indexOf(question.no) > -1,'btn-skipped': seen.indexOf(question.no) > -1}">{{question.no}}
+          <ion-icon *ngIf='question.type == "video"' ios="ios-videocam" md="md-videocam"></ion-icon>
+          <ion-icon *ngIf='question.type == "subjective" || question.type == "objective"' ios="ios-create" md="md-create"></ion-icon>
+        </button>
 
           <!-- <button ion-button color='light' *ngFor="let question of questions;let i = index" (click)="toggleClass(question)"
             [ngClass]="{'btn-active':question.displayed,'btn-skipped': seen.indexOf(question.no) > -1, 'btn-answered':succ.indexOf(index+1) > -1}">{{question.no}}</button> -->

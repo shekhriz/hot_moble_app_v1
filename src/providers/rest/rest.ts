@@ -10,8 +10,8 @@ import { ToastController } from 'ionic-angular';
 */
 @Injectable()
 export class RestProvider {
-  apiUrl = 'http://qa.hookedontalent.com/';
-  // apiUrl = 'http://localhost:8080/';
+  apiUrl = 'https://qa.hookedontalent.com/';
+  // apiUrl = '/';
   constructor(public http: HttpClient,private toastCtrl: ToastController) {
   }
 
@@ -51,6 +51,18 @@ export class RestProvider {
     });
   }
 
+  addCandFeedback(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl+'hotlab/interview/feedback/fromMobile', JSON.stringify(data),{
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+       }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   saveSkills(uniqueId,data) {
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl+'hotlab/interview/questions/skills/response/'+uniqueId, JSON.stringify(data),{
@@ -75,7 +87,7 @@ export class RestProvider {
 
   setInterviewStatus(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl+'hotlab/interview/setInterviewStatus/'+data.uniqueId, JSON.stringify(data),{
+      this.http.post(this.apiUrl+'hotlab/interview/setInterviewStatus', JSON.stringify(data),{
         headers: new HttpHeaders().set('Content-Type', 'application/json')
        }).subscribe(res => {
           resolve(res);
@@ -142,7 +154,6 @@ export class RestProvider {
   }
 
   saveVideoQuestion(uniqueId,qId,blob) {
-    console.log(blob);
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl+'hotlab/interview/upload/video/'+qId+'/'+uniqueId, blob,{
         headers: new HttpHeaders().set('Content-Type', 'video/webm')
@@ -151,6 +162,39 @@ export class RestProvider {
         }, (err) => {
           reject(err);
         });
+    });
+  }
+
+  saveVideoQuestionByfile(uniqueId,qId,file) {
+    console.log(file);
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl+'/hotlab/user/uploadVideoFromMobile/'+uniqueId+'/'+qId, file,{
+        headers: new HttpHeaders().set('Content-Type', 'video/mp4')
+      }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  getInterviewDetails(uniqueId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+'hotlab/interview/details/'+uniqueId).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getInterviewValidity(uniqueId) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+'hotlab/interview/validity/'+uniqueId).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
     });
   }
 
@@ -185,8 +229,17 @@ export class RestProvider {
   setCandidate(candidate){
     window.localStorage.setItem( 'loginCandidate',JSON.stringify(candidate));
   }
+
+  getRowData(){
+    return JSON.parse(window.localStorage.getItem('rowData'));
+  }
+  setRowData(rowData){
+    window.localStorage.setItem( 'rowData',JSON.stringify(rowData));
+  }
+
   removeCandidate(){
     window.localStorage.setItem( 'loginCandidate',null);
+    window.localStorage.setItem( 'rowData',null);
   }
 
 }
